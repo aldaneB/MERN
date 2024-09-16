@@ -10,28 +10,48 @@ import AdminOrders from "./pages/admin-view/orders";
 import AdminFeatures from "./pages/admin-view/features";
 import ShoppingLayout from "./components/shopping-component/layout";
 import PageNotFound from "./pages/404-view";
-import Checkout from "./pages/shopping-view/checkout";
 import ShoppingHomePage from "./pages/shopping-view/home";
 import ShoppingProduct from "./pages/shopping-view/product-listing";
 import ShoppingAccount from "./pages/shopping-view/account";
 import ShoppingCheckout from "./pages/shopping-view/checkout";
+import CheckAuth from "./components/common-component/check-auth";
+import UnauthorizedAccess from "./pages/403-view";
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  // const [count, setCount] = useState(0);
+  const isAuthenticated = true;
+  const userData = {
+    name: "John Doe",
+    email: "johndoe@example.com",
+    role: "user",
+  };
   return (
     <div className="flex flex-col overflow-hidden bg-white">
       {/** Common components */}
 
       {/** Routing components */}
       <Routes>
-        <Route path="/auth" element={<AuthLayout />}>
+        <Route
+          path="/auth"
+          element={
+            <CheckAuth isAuthenticated={isAuthenticated} user={userData}>
+              <AuthLayout />
+            </CheckAuth>
+          }
+        >
           <Route path="register" element={<AuthRegistration />} />
           <Route path="login" element={<AuthLogin />} />
         </Route>
 
         {/**Admin Routes */}
-        <Route path="/admin" element={<AdminLayout />}>
+        <Route
+          path="/admin"
+          element={
+            <CheckAuth isAuthenticated={isAuthenticated} user={userData}>
+              <AdminLayout />
+            </CheckAuth>
+          }
+        >
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="products" element={<AdminProducts />} />
           <Route path="orders" element={<AdminOrders />} />
@@ -39,7 +59,14 @@ function App() {
         </Route>
 
         {/**Shopping Routes */}
-        <Route path="/shop" element={<ShoppingLayout />}>
+        <Route
+          path="/shop"
+          element={
+            <CheckAuth isAuthenticated={isAuthenticated} user={userData}>
+              <ShoppingLayout />
+            </CheckAuth>
+          }
+        >
           <Route path="checkout" element={<ShoppingCheckout />} />
           <Route path="home" element={<ShoppingHomePage />} />
           <Route path="products" element={<ShoppingProduct />} />
@@ -48,6 +75,9 @@ function App() {
 
         {/**Page Not Found Route */}
         <Route path="*" element={<PageNotFound />} />
+
+        {/**Unauthorized Access*/}
+        <Route path="/forbidden-access" element={<UnauthorizedAccess />} />
       </Routes>
     </div>
   );
