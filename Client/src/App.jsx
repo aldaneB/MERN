@@ -19,7 +19,7 @@ import UnauthorizedAccess from "./pages/403-view";
 
 function App() {
   // const [count, setCount] = useState(0);
-  const isAuthenticated = true;
+  const isAuthenticated = false;
   const userData = {
     name: "John Doe",
     email: "johndoe@example.com",
