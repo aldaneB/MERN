@@ -5,6 +5,7 @@ const express = require("express");
 const db = require("./db");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const authRouter = require("./routes/auth-routes/auth-routes");
 
 //create app
 
@@ -31,7 +32,7 @@ app.use(
 
 app.use(cookieParser());
 app.use(express.json());
-
+app.use('/v1/auth ', authRouter)
 //listen for request from port
 
 app.listen(port, () => console.log(`Server is now running on ${port}`));
