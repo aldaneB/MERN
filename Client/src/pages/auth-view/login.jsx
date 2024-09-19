@@ -18,7 +18,7 @@ function AuthLogin() {
           Login
         </h1>
         <p className="mt-4 text-sm text-gray-600">
-          Dont have an account?
+          Don't have an account?
           <Link
             className="font-medium ml-1 text-primary hover:underline"
             to="/auth/register"
@@ -31,7 +31,7 @@ function AuthLogin() {
         formControls={loginFormControls}
         formData={formData}
         setFormData={setFormData}
-        buttonText={"Sign Up"}
+        buttonText={"Login"}
         onSubmit={onSubmit}
       />
     </div>
