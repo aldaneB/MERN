@@ -18,6 +18,7 @@ function CheckAuth({ isAuthenticated, user, children }) {
       location.pathname.includes("/register")
     )
   ) {
+    console.log(`${isAuthenticated}`);
     return <Navigate to={"/auth/login"} />;
   }
   //check if user is authenticated
@@ -27,9 +28,13 @@ function CheckAuth({ isAuthenticated, user, children }) {
       location.pathname.includes("/register"))
   ) {
     if (user?.role === "admin") {
+    //   console.log(`${isAuthenticated}`);
+    //   console.log(`${user?.role}`);
+    //   console.log("here");
       //if user is admin, redirect to admin dashboard
-      <Navigate to={"/admin/dashboard"} />;
+      return <Navigate to={"/admin/dashboard"} />;
     } else {
+    //   console.log("here too?");
       //if user is not admin, redirect to shopping home
       return <Navigate to={"/shop/home"} />;
     }
@@ -41,17 +46,24 @@ function CheckAuth({ isAuthenticated, user, children }) {
     user?.role !== "admin" &&
     location.pathname.includes("/admin")
   ) {
-    return <Navigate to={"/unauth-page"} />;
+    return <Navigate to={"/forbidden-access"} />;
   }
 
   //if user is authenticated and admin, redirect user to dashboard
-  if (
-    isAuthenticated &&
-    user?.role === "admin" &&
-    location.pathname.includes("/admin")
-  ) {
-    return <Navigate to={"/admin/dashboard"} />;
-  }
+  //   if (
+  //     isAuthenticated &&
+  //     user?.role === "admin" &&
+  //     location.pathname.includes("/admin")
+  //   ) {
+  //     return <Navigate to={"/shop/account"} />;
+  //   }
+
+  //   if (user.role === "test") {
+  //     console.log(user);
+  //     return <Navigate to={"shop/home"} />;
+  //   }
+
+  return <>{children}</>;
 }
 
 export default CheckAuth;
